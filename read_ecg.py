@@ -36,17 +36,17 @@ class Read_ecg():
         relativePath = "./test_data/"
         import os
         inputFilesPath = os.path.join(relativePath, fileType)
-#self.relativePath, self.fileType
+        #self.relativePath, self.fileType
 
         import glob
-        imported_files = glob.glob(inputFilesPath)
-        print(imported_files)
-        return imported_files
+        inputFiles = glob.glob(inputFilesPath)
+        print(inputFiles)
+        return inputFiles
 
-    def read_files(imported_files):
+    def readFiles(inputFiles):
         import pandas as pd
-        for imported_file in imported_files:
-            ecg_data = pd.read_csv(imported_file, delimiter = ',', header = None)
+        for inputFile in inputFiles:
+            ecg_data = pd.read_csv(inputFile, delimiter = ',', header = None)
             for row in ecg_data:
                 ecg_time = row[1]
             for row in ecg_data:
@@ -55,7 +55,7 @@ class Read_ecg():
             return ecg_time, ecg_voltage
 
 
-
-
+    def main():
+        input_files = collect_files(self)
 
 
