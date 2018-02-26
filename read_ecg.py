@@ -32,6 +32,7 @@ class Read_ecg():
             :return imported_files: all files found of the file type needed
 
             """
+            filetype = '*.csv'
 
             import glob
             imported_files = glob.glob(filetype)
