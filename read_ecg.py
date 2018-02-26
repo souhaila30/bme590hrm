@@ -6,7 +6,7 @@ class Read_ecg():
 
     """
 
-    def __init__(self, filetype):
+    def __init__(self, fileType, relativePath):
 
         """
 
@@ -14,40 +14,45 @@ class Read_ecg():
 
         """
 
-        #self.location = location
-        self.filetype = filetype
+        self.relativePath = relativePath
+        self.fileType = fileType
 
-
-        import logging
-        logging.basicConfig(filename = 'logging.txt', format = '%(asctime)s %(message)s', datefmt
+    import logging
+    logging.basicConfig(filename = 'logging.txt', format = '%(asctime)s %(message)s', datefmt
                             ='%m/%d/%Y & I:%M:%S %p', level = logging.DEBUG)
 
-        def collect_files(filetype):
+    def collect_files(self):
 
-            """
+        """
 
-            collects all files of the appropriate file type
+        collects all files of the appropriate file type
 
-            :param filetype: type of file to be imported
-            :return imported_files: all files found of the file type needed
+        :param filetype: type of file to be imported
+        :return imported_files: all files found of the file type needed
 
-            """
-            filetype = '*.csv'
+        """
 
-            import glob
-            imported_files = glob.glob(filetype)
-            return imported_files
+        fileType = '*.csv'
+        relativePath = "./test_data/"
+        import os
+        inputFilesPath = os.path.join(relativePath, fileType)
+#self.relativePath, self.fileType
 
-        def read_files(imported_files):
-            import pandas as pd
-            for imported_file in imported_files:
-                ecg_data = pd.read_csv(imported_file, delimiter = ',', header = None)
-                for row in ecg_data:
-                    ecg_time = row[1]
-                for row in ecg_data:
-                    ecg_voltage = row[2]
+        import glob
+        imported_files = glob.glob(inputFilesPath)
+        print(imported_files)
+        return imported_files
 
-                return ecg_time, ecg_voltage
+    def read_files(imported_files):
+        import pandas as pd
+        for imported_file in imported_files:
+            ecg_data = pd.read_csv(imported_file, delimiter = ',', header = None)
+            for row in ecg_data:
+                ecg_time = row[1]
+            for row in ecg_data:
+                ecg_voltage = row[2]
+
+            return ecg_time, ecg_voltage
 
 
 
