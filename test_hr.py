@@ -3,6 +3,7 @@ from hr import read_time
 from hr import read_voltage
 from hr import ecg_plot
 from hr import find_voltage_extremes
+from hr import find_ecg_duration
 import pytest
 
 
