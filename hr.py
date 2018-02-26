@@ -1,100 +1,117 @@
-def read_data():
+class ECG:
 
+    """class that reads an ECG data file, and determines mean HR
     """
 
-    reads the data from the input files and returns the data read
+    def __init__(self, file_type, relative_path):
+        """Initializes the attributes of Read_ecg
+        """
 
-    """
-    import pandas as pd
-    ecg_data = pd.read_csv('./test_data/test_data1.csv', delimiter=',', header=None)
-    return ecg_data
+        self.relative_path = relative_path
+        self.file_type = file_type
+        self.input_files_path = "./test_data/test_data1.csv"
+        self.ecg_data = []
+        self.ecg_voltage = 0
+        self.ecg_time = 0
+        self.duration = 0
+        self.voltage_extremes = 0
+        #self.plot =
+        self.main()
 
+    import logging
+    logging.basicConfig(filename='logging.txt', format='%(asctime)s %(message)s', datefmt
+    ='%m/%d/%Y & I:%M:%S %p', level=logging.DEBUG)
 
-def read_time(ecg_data):
-    """
+    def read_data(self):
 
-    finds the time in the ecg data read and returns the time
+        """reads the data from the input files and returns the data read
+        """
+        import os
+        self.input_files_path = os.path.join(self.relative_path, self.file_type)
+        print('input file path:', self.input_files_path)
+        import pandas as pd
+        self.ecg_data = pd.read_csv(self.input_files_path, delimiter=',', header=None)
+        return self.ecg_data
 
-    :param ecg_data: time and voltage of the ecg data read
-    :return: time of ecg data
+    def read_time(self):
+        """finds the time in the ecg data read and returns the time
 
-    """
-    ecg_time = ecg_data[0]
-    print(ecg_time)
-    print(ecg_time[0])
-    return ecg_time
+        :param ecg_data: time and voltage of the ecg data read
+        :return: time of ecg data
+        """
+        self.ecg_time = self.ecg_data[0]
+        print('ecg time')
+        print(self.ecg_time)
+        print('first time', self.ecg_time[0])
+        return self.ecg_time
 
+    def read_voltage(self):
+        """finds the voltage of the ecg data and returns the voltage
 
-def read_voltage(ecg_data):
-    """
+        :param ecg_data:  input data including time and voltage
+        :return: voltage of ecg data
+        """
+        self.ecg_voltage = self.ecg_data[1]
+        print('ecg voltage')
+        print(self.ecg_voltage)
+        print('first voltage', self.ecg_voltage[0])
+        return self.ecg_voltage
 
-    finds the voltage of the ecg data and returns the voltage
+    def ecg_plot(self):
+        """plots the ecg data in terms of time and voltage
 
-    :param ecg_data:  input data including time and voltage
-    :return: voltage of ecg data
+        :param ecg_time: time input from the ecg
+        :param ecg_voltage: voltage from the ecg
+        :return: a plot of time vs. voltage
+        """
+        import matplotlib as mlp
+        mlp.use('TkAgg')
+        import matplotlib.pyplot as plt
+        plt.plot(self.ecg_time, self.ecg_voltage)
+        plt.xlabel('time')
+        plt.ylabel('voltage')
+        self.plot = plt.show
+        return self.plot
 
-    """
-    ecg_voltage = ecg_data[1]
-    print(ecg_voltage)
-    print(ecg_voltage[0])
-    return ecg_voltage
+    def find_voltage_extremes(self):
+        """takes in the voltage data and returns the voltage extremes
 
+        :param ecg_voltage:
+        :return:
+        """
+        import numpy as np
+        max_voltage = np.max(self.ecg_voltage)
+        print('max voltage:', max_voltage)
+        min_voltage = np.min(self.ecg_voltage)
+        print('min voltage:', min_voltage)
+        self.voltage_extremes = (min_voltage, max_voltage)
+        print('voltage extremes:', self.voltage_extremes)
+        return self.voltage_extremes
 
-def ecg_plot(ecg_time,ecg_voltage):
-    """
+    def find_ecg_duration(self):
+        """takes in ecg time and returns the duration
 
-    plots the ecg data in terms of time and voltage
+        :param: takes in ecg time
+        :return: the duration
+        """
+        import numpy as np
+        min_time = np.min(self.ecg_time)
+        print('min time:', min_time)
+        max_time = np.max(self.ecg_time)
+        print('max time:', max_time)
+        self.duration = max_time - min_time
+        print('duration:', self.duration)
+        return self.duration
 
-    :param ecg_time: time input from the ecg
-    :param ecg_voltage: voltage from the ecg
-    :return: a plot of time vs. voltage
-
-    """
-    import matplotlib as mlp
-    mlp.use('TkAgg')
-    import matplotlib.pyplot as plt
-    plt.plot(ecg_time, ecg_voltage)
-    plt.xlabel('time')
-    plt.ylabel('voltage')
-    plot = plt.show ()
-    return plot
-
-
-def find_voltage_extremes(ecg_voltage):
-    """
-
-    :param ecg_voltage:
-    :return:
-    """
-    import numpy as np
-    max_voltage = np.max(ecg_voltage)
-    print(max_voltage)
-    min_voltage = np.min(ecg_voltage)
-    print(min_voltage)
-    voltage_extremes = (min_voltage, max_voltage)
-    print(voltage_extremes)
-    return voltage_extremes
-
-
-def find_ecg_duration(ecg_time):
-    import numpy as np
-    min_time = np.min(ecg_time)
-    print(min_time)
-    max_time = np.max(ecg_time)
-    print(max_time)
-    duration = max_time - min_time
-    print(duration)
-    return duration
-
-
-def main():
-    ecg_data = read_data()
-    ecg_time = read_time(ecg_data)
-    ecg_voltage = read_voltage(ecg_data)
-    plot = ecg_plot(ecg_time, ecg_voltage)
-    voltage_extremes = find_voltage_extremes(ecg_voltage)
-    duration = find_ecg_duration(ecg_time)
+    def main(self):
+        self.ecg_data = self.read_data()
+        self.ecg_time = self.read_time()
+        self.ecg_voltage = self.read_voltage()
+        self.plot = self.ecg_plot()
+        self.voltage_extremes = self.find_voltage_extremes()
+        self.duration = self.find_ecg_duration()
 
 
 if __name__ == "__main__":
-    main()
+    a = ECG('test_data2.csv', "./test_data/")
+    a.main()
