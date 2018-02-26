@@ -1,4 +1,7 @@
-from read_ecg import Read_ecg
+#from read_ecg import Read_ecg
+from read_ecg import collect_files
+from read_ecg import read_files
+
 import pytest
 
 def test_try_exception_import():
@@ -13,27 +16,27 @@ def test_try_exception_import():
         import ThisisNotAFile
 
 
-#def test_read_time():
+def test_read_time():
 
- #   """
+    """
 
-  #  tests that the  time is read properly from the file
+    tests that the  time is read properly from the file
 
-   # """
+    """
 
-    #test_time = read_time()
-    #assert test_time == time
+    test_time = read_time()
+    assert test_time == time
 
 
-#def test_read_voltage():
+def test_read_voltage():
 
- #   """
-#
- #   tests that the voltage is read properly from the file
+   """
 
-  #  """
+   tests that the voltage is read properly from the file
 
-   # test_voltage = read_voltage()
-   # assert test_voltage == voltage
+   """
+
+   test_voltage = read_voltage()
+   assert test_voltage == voltage
 
 
