@@ -120,7 +120,7 @@ class ECG:
         self.ecg_data = self.read_data()
         self.ecg_time = self.read_time()
         self.ecg_voltage = self.read_voltage()
-        self.plot = self.ecg_plot()
+        #self.plot = self.ecg_plot()
         self.voltage_extremes = self.find_voltage_extremes()
         self.duration = self.find_ecg_duration()
 
