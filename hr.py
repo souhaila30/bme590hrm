@@ -19,18 +19,18 @@ class ECG:
         self.main()
 
     import logging
-    logging.basicConfig(filename='logging.txt', format='%(asctime)s %(message)s', datefmt
-    ='%m/%d/%Y & I:%M:%S %p', level=logging.DEBUG)
+    logging.basicConfig(filename='logging.txt', format='%(asctime)s %(message)s',datefmt='%m/%d/%Y & I:%M:%S %p', level=logging.DEBUG)
 
     def read_data(self):
 
         """reads the data from the input files and returns the data read
         """
         import os
-        self.input_files_path = os.path.join(self.relative_path, self.file_type)
-        print('input file path:', self.input_files_path)
+        self.input_path = os.path.join(self.relative_path,self.file_type)
+        print('input file path:', self.input_path)
         import pandas as pd
-        self.ecg_data = pd.read_csv(self.input_files_path, delimiter=',', header=None)
+        self.ecg_data = pd.read_csv(self.input_path, delimiter=',',
+                                    header=None)
         return self.ecg_data
 
     def read_time(self):
@@ -104,17 +104,15 @@ class ECG:
         return self.duration
 
     # def find_peaks(self):
-    #     """takes ecg data - time and voltage - and finds the peaks - maximum voltage
+    #     """takes ecg data and finds the peaks
     #
-    #     :param: takes in ecg data
-    #     :return: location of peaks
+    #     :param: takes in ecg data - time and voltage
+    #     :return: location of peaks - maximum voltage
     #     """
     #
     #     import pandas as pd
     #
     #
-
-
 
     def main(self):
         self.ecg_data = self.read_data()
@@ -124,7 +122,5 @@ class ECG:
         self.voltage_extremes = self.find_voltage_extremes()
         self.duration = self.find_ecg_duration()
 
-
 if __name__ == "__main__":
     a = ECG('test_data6.csv', "./test_data/")
-
