@@ -26,3 +26,7 @@ def test_voltage_tuple_size():
 
 def test_ecg_duration():
     assert test_data1.duration == 10
+
+
+def test_peaks():
+    assert test_data1.peaks == 5
