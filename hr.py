@@ -19,7 +19,8 @@ class ECG:
         self.main()
 
     import logging
-    logging.basicConfig(filename='logging.txt', format='%(asctime)s %(message)s',
+    logging.basicConfig(filename='logging.txt',
+                        format='%(asctime)s %(message)s',
                         datefmt='%m/%d/%Y & I:%M:%S %p',
                         level=logging.DEBUG)
 
