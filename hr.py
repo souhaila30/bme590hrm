@@ -61,21 +61,21 @@ class ECG:
         print('first voltage', self.ecg_voltage[0])
         return self.ecg_voltage
 
-    # def ecg_plot(self):
-    #     """plots the ecg data in terms of time and voltage
-    #
-    #     :param ecg_time: time input from the ecg
-    #     :param ecg_voltage: voltage from the ecg
-    #     :return: a plot of time vs. voltage
-    #     """
-    #     import matplotlib as mlp
-    #     mlp.use('TkAgg')
-    #     import matplotlib.gipyplot as plt
-    #     plt.plot(self.ecg_time, self.ecg_voltage)
-    #     plt.xlabel('time')
-    #     plt.ylabel('voltage')
-    #     self.plot = plt.show
-    #     return self.plot
+    def ecg_plot(self):
+        """plots the ecg data in terms of time and voltage
+
+        :param ecg_time: time input from the ecg
+        :param ecg_voltage: voltage from the ecg
+        :return: a plot of time vs. voltage
+        """
+        import matplotlib as mlp
+        mlp.use('TkAgg')
+        import matplotlib.gipyplot as plt
+        plt.plot(self.ecg_time, self.ecg_voltage)
+        plt.xlabel('time')
+        plt.ylabel('voltage')
+        self.plot = plt.show
+        return self.plot
 
     def find_voltage_extremes(self):
         """takes in the voltage data and returns the voltage extremes
@@ -107,16 +107,16 @@ class ECG:
         print('duration:', self.duration)
         return self.duration
 
-    # def find_peaks(self):
-    #     """takes ecg data and finds the peaks
-    #
-    #     :param: takes in ecg data - time and voltage
-    #     :return: location of peaks - maximum voltage
-    #     """
-    #
-    #     import pandas as pd
-    #
-    #
+    def find_peaks(self):
+        """takes ecg data and finds the peaks
+
+        :param: takes in ecg data - time and voltage
+        :return: location of peaks - maximum voltage
+        """
+
+        import pandas as pd
+
+
 
     def main(self):
         self.ecg_data = self.read_data()
@@ -124,8 +124,7 @@ class ECG:
         self.ecg_voltage = self.read_voltage()
         self.voltage_extremes = self.find_voltage_extremes()
         self.duration = self.find_ecg_duration()
-
-# self.plot = self.ecg_plot()
+        self.plot = self.ecg_plot()
 
 
 if __name__ == "__main__":
