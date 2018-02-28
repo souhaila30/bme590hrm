@@ -57,21 +57,21 @@ class ECG:
         print('first voltage', self.ecg_voltage[0])
         return self.ecg_voltage
 
-    def ecg_plot(self):
-        """plots the ecg data in terms of time and voltage
-
-        :param ecg_time: time input from the ecg
-        :param ecg_voltage: voltage from the ecg
-        :return: a plot of time vs. voltage
-        """
-        import matplotlib as mlp
-        mlp.use('TkAgg')
-        import matplotlib.pyplot as plt
-        plt.plot(self.ecg_time, self.ecg_voltage)
-        plt.xlabel('time')
-        plt.ylabel('voltage')
-        self.plot = plt.show
-        return self.plot
+    # def ecg_plot(self):
+    #     """plots the ecg data in terms of time and voltage
+    #
+    #     :param ecg_time: time input from the ecg
+    #     :param ecg_voltage: voltage from the ecg
+    #     :return: a plot of time vs. voltage
+    #     """
+    #     import matplotlib as mlp
+    #     mlp.use('TkAgg')
+    #     import matplotlib.gipyplot as plt
+    #     plt.plot(self.ecg_time, self.ecg_voltage)
+    #     plt.xlabel('time')
+    #     plt.ylabel('voltage')
+    #     self.plot = plt.show
+    #     return self.plot
 
     def find_voltage_extremes(self):
         """takes in the voltage data and returns the voltage extremes
@@ -102,6 +102,19 @@ class ECG:
         self.duration = max_time - min_time
         print('duration:', self.duration)
         return self.duration
+
+    # def find_peaks(self):
+    #     """takes ecg data - time and voltage - and finds the peaks - maximum voltage
+    #
+    #     :param: takes in ecg data
+    #     :return: location of peaks
+    #     """
+    #
+    #     import pandas as pd
+    #
+    #
+
+
 
     def main(self):
         self.ecg_data = self.read_data()
