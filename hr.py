@@ -15,7 +15,7 @@ class ECG:
         self.ecg_time = 0
         self.duration = 0
         self.voltage_extremes = 0
-        #self.plot =
+        # self.plot = plot
         self.main()
 
     import logging
@@ -113,5 +113,5 @@ class ECG:
 
 
 if __name__ == "__main__":
-    a = ECG('test_data2.csv', "./test_data/")
-    a.main()
+    a = ECG('test_data6.csv', "./test_data/")
+
