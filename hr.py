@@ -15,7 +15,8 @@ class ECG:
         self.ecg_time = 0
         self.duration = 0
         self.voltage_extremes = 0
-        # self.plot = plot
+        #self.peaks = 0
+        self.correlation = []
         self.main()
 
     import logging
@@ -70,12 +71,12 @@ class ECG:
         """
         import matplotlib as mlp
         mlp.use('TkAgg')
-        import matplotlib.gipyplot as plt
-        plt.plot(self.ecg_time, self.ecg_voltage)
+        import matplotlib.pyplot as plt
+        ecg_plot = plt.plot(self.ecg_time, self.ecg_voltage)
         plt.xlabel('time')
         plt.ylabel('voltage')
-        self.plot = plt.show
-        return self.plot
+        plt.show ()
+        return ecg_plot
 
     def find_voltage_extremes(self):
         """takes in the voltage data and returns the voltage extremes
@@ -107,15 +108,33 @@ class ECG:
         print('duration:', self.duration)
         return self.duration
 
-    def find_peaks(self):
-        """takes ecg data and finds the peaks
+    def autocorrelate(self):
+        import numpy as np
+        import matplotlib as mlp
+        mlp.use('TkAgg')
+        import matplotlib.pyplot as plt
+        self.correlation = np.correlate (self.ecg_data[1], self.ecg_data[1],'full')
+        print('ecg_data[1]',self.ecg_data[1])
+        print('correlation results:', self.correlation)
+        correlation_plot = plt.plot(self.correlation)
+        plt.xlabel('time')
+        plt.ylabel('correlation sum')
+        plt.show()
+        return correlation_plot
+        return self.correlation
 
-        :param: takes in ecg data - time and voltage
-        :return: location of peaks - maximum voltage
-        """
-
-        import pandas as pd
-
+    # def find_peaks(self):
+    #     """takes ecg data and finds the peaks
+    #
+    #     :param: takes in ecg data - time and voltage
+    #     :return: location of peaks - maximum voltage
+    #     """
+    #     import pandas as pd
+    #     import matplotlib as mlp
+    #     mlp.use('TkAgg')
+    #     #import matplotlib.gipyplot as plt
+    #     import numpy as np
+    #     import math
 
 
     def main(self):
@@ -124,8 +143,12 @@ class ECG:
         self.ecg_voltage = self.read_voltage()
         self.voltage_extremes = self.find_voltage_extremes()
         self.duration = self.find_ecg_duration()
-        self.plot = self.ecg_plot()
+        ecg_plot = self.ecg_plot()
+        #self.peaks = self.find_peaks()
+        self.correlation = self.autocorrelate()
+        correlation_plot = self.autocorrelate()
+
 
 
 if __name__ == "__main__":
-    a = ECG('test_data6.csv', "./test_data/")
+    a = ECG('test_data1.csv', "./test_data/")
