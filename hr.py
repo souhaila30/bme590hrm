@@ -1,5 +1,4 @@
 class ECG:
-
     """class that reads an ECG data file, and determines mean HR
     """
 
@@ -42,7 +41,7 @@ class ECG:
         import pandas as pd
         try:
             self.ecg_data = pd.read_csv(self.input_path, delimiter=',',
-                                    header=None)
+                                        header=None)
         except ImportError:
             raise ImportError('File not found, input an new path')
 
@@ -129,15 +128,13 @@ class ECG:
             import numpy as np
             full_time = self.ecg_data[0]
             min_time = np.min(full_time)
-            # print('min time:', min_time)
             max_time = np.max(full_time)
-            # print('max time:', max_time)
             self.duration = max_time - min_time
-            # print('duration:', self.duration)
         except TypeError:
             print('Data must be numbers')
         return self.duration
 
+    @property
     def auto_correlate(self):
         """takes in ecg data and cross-correlates it with one ecg peak
 
@@ -149,8 +146,9 @@ class ECG:
         mlp.use('TkAgg')
         import matplotlib.pyplot as plt
         normalized_ecg_data = (self.ecg_data_sliced -
-                            np.min(self.ecg_data_sliced))/(np.max(self.ecg_data_sliced) -
-                            np.min(self.ecg_data_sliced))
+                               np.min(self.ecg_data_sliced)) / (np.max(
+                                self.ecg_data_sliced) -
+                                np.min(self.ecg_data_sliced))
         #
         # ecg_ = self.ecg_data[0:330]
         # print(ecg_)
@@ -194,7 +192,6 @@ class ECG:
         :return: mean heart rate
         """
         import numpy as np
-        #print('ecg time', self.ecg_time)
         end_time = np.max(self.ecg_time[0])
         print('end time', end_time)
         start_time = np.min(self.ecg_time[0])
@@ -215,8 +212,6 @@ class ECG:
         import numpy as np
         ecg_time = self.ecg_time[0]
         beats_time = ecg_time[self.peaks]
-        # print(beats_time)
-        # print(self.ecg_time)
         self.beats_time = np.array(beats_time).tolist()
         print('beats time', self.beats_time)
         return self.beats_time
@@ -259,12 +254,12 @@ class ECG:
         self.voltage_extremes = self.find_voltage_extremes()
         self.duration = self.find_ecg_duration()
         ecg_plot = self.ecg_plot()
-        self.correlation = self.auto_correlate()
+        self.correlation = self.auto_correlate
         self.peaks = self.find_peaks()
         self.number_beats = self.count_beats()
         self.meanHR = self.calculate_hr_bpm()
         self.beats_time = self.create_beats_array()
-        #self.json_output = self.create_json()
+        self.json_output = self.create_json()
 
         logging.info('Info: program ended')
 
