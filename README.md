@@ -5,4 +5,4 @@ This code takes ECG data in the form of time and voltage, and returns various at
 
 The associated test files verify functionality of the code. 
 
-
+HTML: file:///Users/souhaila/Software_Spring18/bme590hrm/docs/_build/html/hr.html
