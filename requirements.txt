@@ -7,3 +7,6 @@
  pytest
  pytest-cov
  pytest-pep8
+ plotly
+ peakutils
+ sklearn
