@@ -27,8 +27,27 @@ def test_voltage_tuple_size():
 def test_ecg_duration():
     assert test_data1.duration == 10
 
+
 def test_autocorrelation():
     assert test_data1.correlation == 4
-#
-# def test_peaks():
-#     assert test_data1.peaks == 5
+
+
+def test_peaks():
+    assert test_data1.peaks == 5
+
+
+def test_count_beats():
+    assert test_data1.number_beats == 20
+
+
+def test_mean_HR():
+    assert test_data1.meanHR == 60
+
+
+def test_hr_upper_limit():
+    assert test_data1.meanHR < 150
+
+
+def test_hr_lower_limit():
+    assert test_data1.meanHR > 40
+
