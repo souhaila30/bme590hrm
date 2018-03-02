@@ -1,7 +1,7 @@
 from hr import ECG
 import pytest
 
-test_data1 = ECG('test1.csv', './test_data/')
+test_data1 = ECG('test1.csv', './test_data/',2)
 
 
 def test_read_time():
@@ -27,21 +27,12 @@ def test_voltage_tuple_size():
 def test_ecg_duration():
     assert test_data1.duration == 10
 
-
-# def test_autocorrelation():
-#     assert test_data1.correlation == []
-
-
-def test_peaks():
-    assert test_data1.peaks == [10]
-
-
 def test_count_beats():
     assert test_data1.number_beats == 1
 
 
 def test_mean_HR():
-    assert test_data1.meanHR == 6
+    assert test_data1.meanHR == 60
 
 
 def test_hr_upper_limit():
