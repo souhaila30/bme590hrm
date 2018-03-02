@@ -40,8 +40,12 @@ class ECG:
                                        self.file_type)
         print('input file path:', self.input_path)
         import pandas as pd
-        self.ecg_data = pd.read_csv(self.input_path, delimiter=',',
+        try:
+            self.ecg_data = pd.read_csv(self.input_path, delimiter=',',
                                     header=None)
+        except ImportError:
+            raise ImportError('File not found, input an new path')
+
         return self.ecg_data
 
     def read_time(self):
@@ -54,7 +58,8 @@ class ECG:
         ecg_time = self.ecg_data[0]
         max_time = np.max(ecg_time)
         if self.user_input > max_time:
-            raise ValueError("The time requested is longer than the max time recorded")
+            raise ValueError("The time requested is longer "
+                             "than the max time recorded")
         else:
             nearest_time = [abs(i - self.user_input) for i in ecg_time]
             self.idx = nearest_time.index(min(nearest_time))
@@ -78,9 +83,6 @@ class ECG:
         # print('ecg voltage')
         # print(self.ecg_voltage)
 
-        # for i in self.ecg_voltage:
-        #     if type(i) is not float:
-        #         raise TypeError('voltage must be a number, not a string')
         return self.ecg_voltage
 
     def ecg_plot(self):
@@ -123,14 +125,17 @@ class ECG:
         :param: takes in ecg time
         :return: the duration
         """
-        import numpy as np
-        full_time = self.ecg_data[0]
-        min_time = np.min(full_time)
-        # print('min time:', min_time)
-        max_time = np.max(full_time)
-        # print('max time:', max_time)
-        self.duration = max_time - min_time
-        # print('duration:', self.duration)
+        try:
+            import numpy as np
+            full_time = self.ecg_data[0]
+            min_time = np.min(full_time)
+            # print('min time:', min_time)
+            max_time = np.max(full_time)
+            # print('max time:', max_time)
+            self.duration = max_time - min_time
+            # print('duration:', self.duration)
+        except TypeError:
+            print('Data must be numbers')
         return self.duration
 
     def auto_correlate(self):
@@ -144,8 +149,8 @@ class ECG:
         mlp.use('TkAgg')
         import matplotlib.pyplot as plt
         normalized_ecg_data = (self.ecg_data_sliced -
-                               np.min(self.ecg_data_sliced))/(np.max(self.ecg_data_sliced) -
-                                                       np.min(self.ecg_data_sliced))
+                            np.min(self.ecg_data_sliced))/(np.max(self.ecg_data_sliced) -
+                            np.min(self.ecg_data_sliced))
         #
         # ecg_ = self.ecg_data[0:330]
         # print(ecg_)
@@ -191,9 +196,9 @@ class ECG:
         import numpy as np
         #print('ecg time', self.ecg_time)
         end_time = np.max(self.ecg_time[0])
-        print('end time',end_time)
+        print('end time', end_time)
         start_time = np.min(self.ecg_time[0])
-        print('start time',start_time)
+        print('start time', start_time)
         time_elapsed = end_time - start_time
         self.meanHR = self.number_beats / (time_elapsed / 60)
         print('duration in seconds:', self.duration)
@@ -213,7 +218,7 @@ class ECG:
         # print(beats_time)
         # print(self.ecg_time)
         self.beats_time = np.array(beats_time).tolist()
-        print('beats time',self.beats_time)
+        print('beats time', self.beats_time)
         return self.beats_time
 
     def create_json(self):
@@ -227,24 +232,20 @@ class ECG:
         import logging
 
         print(self.input_path)
-        stem,_ = splitext(self.input_path)
+        stem, _ = splitext(self.input_path)
         self.json_output = stem + '.json'
         print(self.json_output)
 
         logging.info('Info: Json file created')
 
-        data = [{"voltage extremes":self.voltage_extremes},
+        data = [{"voltage extremes": self.voltage_extremes},
                 {"ECG duration": self.duration},
                 {"Number of detected beats": self.number_beats},
                 {"mean HR in bpm": self.meanHR},
-                {'time of detected beats': self.beats_time}
-            ]
+                {'time of detected beats': self.beats_time}]
         with open(self.json_output, 'w') as jf:
             json.dump(data, jf)
         return self.json_output
-
-    #def find_exceptions(self):
-
 
     def main(self):
         """includes all the defined functions within the ecg class
@@ -263,9 +264,10 @@ class ECG:
         self.number_beats = self.count_beats()
         self.meanHR = self.calculate_hr_bpm()
         self.beats_time = self.create_beats_array()
-        self.json_output = self.create_json()
+        #self.json_output = self.create_json()
 
         logging.info('Info: program ended')
 
+
 if __name__ == "__main__":
-    a = ECG('test_data6.csv', "./test_data/", 10)
+    a = ECG('test_data1.csv', "./test_data/", 10)
