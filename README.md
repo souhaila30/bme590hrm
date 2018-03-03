@@ -1,8 +1,20 @@
-# bme590hrm
-Heart Rate Monitor Assignment
+*Contributor*: Souhaila Noor
+Project: Heart Rate Monitor
+Course: BME590 Medical Device Software Design
 
-This code takes ECG data in the form of time and voltage, and returns various attributes. The mean heart rate, the duration of the ECG, the voltage extremes, and the time of the detected peaks are all obtained. The attributes obtained are then stored in JSON format and a file with the same name as the csv is created. 
+This code takes ECG data in the form of time and voltage, and returns various attributes including:
+   Mean heart rate (bpm)
+   Duration of the ECG
+   Voltage extremes
+   Time of detected peaks
+   
+The attributes obtained are then stored in a JSON file. 
 
-The associated test files verify functionality of the code. 
+To use this code:
+    Create a virtual environment
+    Install the requirements 
+    Run hr.py in python 
 
-HTML: file:///Users/souhaila/Software_Spring18/bme590hrm/docs/_build/html/hr.html
+Sphinx Documentation: file:///Users/souhaila/Software_Spring18/bme590hrm/docs/_build/html/hr.html
+
+CI Travis Check: https://travis-ci.org/souhaila30/bme590hrm.svg?branch=master
