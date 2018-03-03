@@ -10,6 +10,20 @@ Welcome to bme590hrm's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+    ECG
+    read_data
+    read_time
+    read_voltage
+    ecg_plot
+    find_voltage_extremes
+    find_ecg_duration
+    auto_correlation
+    find_peaks
+    count_beats
+    calculate_hr_bpm
+    create_beats_array
+    create_json
+    main
 
 
 Indices and tables
