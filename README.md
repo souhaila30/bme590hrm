@@ -23,6 +23,4 @@ To use this code:
     
     Run hr.py in python 
 
-Sphinx Documentation: Software_Spring18/bme590hrm/docs/_build/html/hr.html
-
 CI Travis Check: https://travis-ci.org/souhaila30/bme590hrm.svg?branch=master
