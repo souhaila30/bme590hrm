@@ -150,6 +150,9 @@ class ECG:
         """
         try:
             import numpy as np
+            import matplotlib as mlp
+            mlp.use('TkAgg')
+            import matplotlib.pyplot as plt
             normalized_ecg_data = (self.ecg_data_sliced -
                                    np.min(self.ecg_data_sliced)) / (np.max(
                                     self.ecg_data_sliced) -
@@ -160,10 +163,10 @@ class ECG:
                                             ecg_kernel[1], 'full')
             print('correlation results:', self.correlation)
 
-            correlation_plot = plt.plot(self.correlation)
-            plt.xlabel('lag')
-            plt.ylabel('correlation sum')
-            plt.show()
+            # correlation_plot = plt.plot(self.correlation)
+            # plt.xlabel('lag')
+            # plt.ylabel('correlation sum')
+            # plt.show()
 
             return self.correlation
 
