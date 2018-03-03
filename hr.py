@@ -101,8 +101,9 @@ class ECG:
         # plt.figure(1)
         # ecg_plot = plt.plot(ecg_time, ecg_voltage, 'b', label='ECG Original')
         # #plt.figure(2)
-        # #peaks_plot = plt.plot(self.beats_time, self.ecg_voltage[:self.peaks], 'y', linewidth=5,
-        #  #                     label='Peaks Detected')
+        # #peaks_plot = plt.plot(self.beats_time,
+        #               self.ecg_voltage[:self.peaks], 'y', linewidth=5,
+        #  #            label='Peaks Detected')
         # plt.xlabel('time')
         # plt.ylabel('voltage')
         # plt.show()
@@ -280,8 +281,7 @@ class ECG:
         self.number_beats = self.count_beats()
         self.meanHR = self.calculate_hr_bpm()
         self.beats_time = self.create_beats_array()
-        #
-        #self.json_output = self.create_json()
+        self.json_output = self.create_json()
 
         logging.info('Info: program ended')
 
