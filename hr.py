@@ -102,10 +102,11 @@ class ECG:
         ecg_plot = plt.plot(ecg_time, ecg_voltage, 'b', label='ECG Original')
         #plt.figure(2)
         #peaks_plot = plt.plot(self.beats_time, self.ecg_voltage[:self.peaks], 'y', linewidth=5,
-                              label='Peaks Detected')
+         #                     label='Peaks Detected')
         plt.xlabel('time')
         plt.ylabel('voltage')
         plt.show()
+
         return ecg_plot
 
     def find_voltage_extremes(self):
