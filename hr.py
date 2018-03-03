@@ -185,7 +185,8 @@ class ECG:
         try:
             import numpy as np
             from scipy import signal
-            self.peaks = signal.find_peaks_cwt(self.correlation, np.arange(1, 330))
+            self.peaks = signal.find_peaks_cwt(self.correlation,
+                                               np.arange(1, 330))
             print('location of peaks:', self.peaks)
             return self.peaks
         except ValueError:
