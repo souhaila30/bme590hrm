@@ -78,6 +78,3 @@ def test_hr_lower_limit():
 
 def test_beats_time():
     assert len(test_data1.beats_time) == 32
-
-
-
