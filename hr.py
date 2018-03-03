@@ -93,21 +93,21 @@ class ECG:
         :param: voltage from the ecg
         :return: a plot of time vs. voltage
         """
-        import matplotlib as mlp
-        mlp.use('TkAgg')
-        import matplotlib.pyplot as plt
-        ecg_time = self.ecg_data[0]
-        ecg_voltage = self.ecg_data[1]
-        plt.figure(1)
-        ecg_plot = plt.plot(ecg_time, ecg_voltage, 'b', label='ECG Original')
-        #plt.figure(2)
-        #peaks_plot = plt.plot(self.beats_time, self.ecg_voltage[:self.peaks], 'y', linewidth=5,
-         #                     label='Peaks Detected')
-        plt.xlabel('time')
-        plt.ylabel('voltage')
-        plt.show()
-
-        return ecg_plot
+        # import matplotlib as mlp
+        # mlp.use('TkAgg')
+        # import matplotlib.pyplot as plt
+        # ecg_time = self.ecg_data[0]
+        # ecg_voltage = self.ecg_data[1]
+        # plt.figure(1)
+        # ecg_plot = plt.plot(ecg_time, ecg_voltage, 'b', label='ECG Original')
+        # #plt.figure(2)
+        # #peaks_plot = plt.plot(self.beats_time, self.ecg_voltage[:self.peaks], 'y', linewidth=5,
+        #  #                     label='Peaks Detected')
+        # plt.xlabel('time')
+        # plt.ylabel('voltage')
+        # plt.show()
+        #
+        # return ecg_plot
 
     def find_voltage_extremes(self):
         """takes in the voltage data and returns the voltage extremes
@@ -274,7 +274,7 @@ class ECG:
         self.ecg_voltage = self.read_voltage()
         self.voltage_extremes = self.find_voltage_extremes()
         self.duration = self.find_ecg_duration()
-        ecg_plot = self.ecg_plot()
+        # ecg_plot = self.ecg_plot()
         self.correlation = self.auto_correlate
         self.peaks = self.find_peaks()
         self.number_beats = self.count_beats()
