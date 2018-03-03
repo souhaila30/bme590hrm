@@ -280,6 +280,7 @@ class ECG:
         self.number_beats = self.count_beats()
         self.meanHR = self.calculate_hr_bpm()
         self.beats_time = self.create_beats_array()
+        #
         #self.json_output = self.create_json()
 
         logging.info('Info: program ended')

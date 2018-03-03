@@ -1,7 +1,7 @@
 from hr import ECG
 import pytest
 
-test_data1 = ECG('test_data1.csv', './test_data/',27)
+test_data1 = ECG('test_data1.csv', './test_data/', 27)
 
 
 # def test_read_time():
