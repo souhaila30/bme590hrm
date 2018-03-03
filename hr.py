@@ -4,6 +4,7 @@ class ECG:
 
     def __init__(self, file_type, relative_path, user_input):
         """Initializes the attributes of ECG
+
         """
 
         self.relative_path = relative_path
@@ -12,6 +13,7 @@ class ECG:
         self.user_input = user_input
         self.idx = 0
         self.ecg_data = []
+        self.ecg_data_sliced = []
         self.ecg_voltage = 0
         self.ecg_time = 0
         self.duration = 0
@@ -87,8 +89,8 @@ class ECG:
     def ecg_plot(self):
         """plots the ecg data in terms of time and voltage
 
-        :param ecg_time: time input from the ecg
-        :param ecg_voltage: voltage from the ecg
+        :param: time input from the ecg
+        :param: voltage from the ecg
         :return: a plot of time vs. voltage
         """
         import matplotlib as mlp
@@ -141,26 +143,32 @@ class ECG:
         :param: takes in ecg data
         :return: cross correlation result
         """
-        import numpy as np
-        import matplotlib as mlp
-        mlp.use('TkAgg')
-        import matplotlib.pyplot as plt
-        normalized_ecg_data = (self.ecg_data_sliced -
-                               np.min(self.ecg_data_sliced)) / (np.max(
-                                self.ecg_data_sliced) -
-                                np.min(self.ecg_data_sliced))
-        #
-        # ecg_ = self.ecg_data[0:330]
-        # print(ecg_)
-        ecg_kernel = normalized_ecg_data[0:330]
-        self.correlation = np.correlate(normalized_ecg_data[1],
-                                        ecg_kernel[1], 'full')
-        print('correlation results:', self.correlation)
-        correlation_plot = plt.plot(self.correlation)
-        plt.xlabel('lag')
-        plt.ylabel('correlation sum')
-        plt.show()
-        return self.correlation
+        try:
+            import numpy as np
+            import matplotlib as mlp
+            mlp.use('TkAgg')
+            import matplotlib.pyplot as plt
+            normalized_ecg_data = (self.ecg_data_sliced -
+                                   np.min(self.ecg_data_sliced)) / (np.max(
+                                    self.ecg_data_sliced) -
+                                    np.min(self.ecg_data_sliced))
+
+            ecg_kernel = normalized_ecg_data[0:330]
+            self.correlation = np.correlate(normalized_ecg_data[1],
+                                            ecg_kernel[1], 'full')
+            print('correlation results:', self.correlation)
+
+            correlation_plot = plt.plot(self.correlation)
+            plt.xlabel('lag')
+            plt.ylabel('correlation sum')
+            plt.show()
+
+            return self.correlation
+
+        except ImportError:
+            print('Unable to import required module')
+        except TypeError:
+            print('Unable to graph data, check data type')
 
     def find_peaks(self):
         """takes in cross correlation results and finds the peaks
@@ -168,11 +176,14 @@ class ECG:
         :param: cross correlation results
         :return: location of peaks
         """
-        import numpy as np
-        from scipy import signal
-        self.peaks = signal.find_peaks_cwt(self.correlation, np.arange(1, 330))
-        print('location of peaks:', self.peaks)
-        return self.peaks
+        try:
+            import numpy as np
+            from scipy import signal
+            self.peaks = signal.find_peaks_cwt(self.correlation, np.arange(1, 330))
+            print('location of peaks:', self.peaks)
+            return self.peaks
+        except ValueError:
+            print('Unable to detect peaks')
 
     def count_beats(self):
         """takes in the peaks and returns the number of peaks
@@ -232,15 +243,19 @@ class ECG:
         print(self.json_output)
 
         logging.info('Info: Json file created')
-
-        data = [{"voltage extremes": self.voltage_extremes},
-                {"ECG duration": self.duration},
-                {"Number of detected beats": self.number_beats},
-                {"mean HR in bpm": self.meanHR},
-                {'time of detected beats': self.beats_time}]
-        with open(self.json_output, 'w') as jf:
-            json.dump(data, jf)
-        return self.json_output
+        try:
+            data = [{"voltage extremes": self.voltage_extremes},
+                    {"ECG duration": self.duration},
+                    {"Number of detected beats": self.number_beats},
+                    {"mean HR in bpm": self.meanHR},
+                    {'time of detected beats': self.beats_time}]
+            with open(self.json_output, 'w') as jf:
+                json.dump(data, jf)
+            return self.json_output
+        except ValueError:
+            print('invalid json input')
+            logging.debug('Error: json output')
+            return None
 
     def main(self):
         """includes all the defined functions within the ecg class
@@ -259,7 +274,7 @@ class ECG:
         self.number_beats = self.count_beats()
         self.meanHR = self.calculate_hr_bpm()
         self.beats_time = self.create_beats_array()
-        self.json_output = self.create_json()
+        #self.json_output = self.create_json()
 
         logging.info('Info: program ended')
 
